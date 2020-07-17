@@ -1,1 +1,1 @@
-# Bithacks-hackathon
+# Project for Bay Area Hacks
