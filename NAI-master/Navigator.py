@@ -24,37 +24,43 @@ RUN = False
 
 def draw(mode_type,frame, left1_sq, right1_sq, left_bottom_point, left_top_point, landmarks, lcenter_top, lcenter_bottom, right_bottom_point, left_sq, right_sq, right_top_point, rcenter_top,  rcenter_bottom, xmax, xmin,  gaze_vector, left_midpoint, right_midpoint):
     if mode_type == 'std':
+        #frame = cv2.rectangle(frame, left1_sq, right1_sq, (209,206,0), 2)
         frame = cv2.line(frame, left_bottom_point, left_top_point,(255,0,255),2)
         frame = cv2.line(frame, lcenter_top, lcenter_bottom, (255,0,255),2)
-        frame = cv2.line(frame, right_bottom_point, right_top_point, (255,0,255), 2)
-        frame = cv2.line(frame, rcenter_top, rcenter_bottom, (255,0,255),2)
+        #frame = cv2.rectangle(frame, left_sq, right_sq, (209,206,0), 2)
+        frame = cv2.line(frame, right_bottom_point, right_top_point, (209,206,0), 2)
+        frame = cv2.line(frame, rcenter_top, rcenter_bottom, (209,206,0),2)
         arrow_length = int(0.3 * xmax-xmin)
         gaze_arrow_left = (int(arrow_length * - gaze_vector[0][0] + left_midpoint[0]), int(arrow_length * gaze_vector[0][1] + left_midpoint[1]))
         gaze_arrow_right = (int(arrow_length * -  gaze_vector[0][0] + right_midpoint[0]), int(arrow_length * gaze_vector[0][1] + right_midpoint[1]))
         frame = cv2.arrowedLine(frame, left_midpoint, gaze_arrow_left, (255, 255, 255), 2)
         frame = cv2.arrowedLine(frame, right_midpoint, gaze_arrow_right, (255, 255, 255), 2)
-        frame = cv2.line(frame, (landmarks.part(48).x, landmarks.part(48).y), (landmarks.part(60).x, landmarks.part(60).y), (255,0,255),2)
-        frame = cv2.line(frame, (landmarks.part(60).x, landmarks.part(60).y), (int((landmarks.part(67).x+landmarks.part(61).x)/2), int((landmarks.part(67).y+landmarks.part(61).y)/2)), (209,206,0),2)
-        frame = cv2.line(frame, (int((landmarks.part(67).x+landmarks.part(61).x)/2), int((landmarks.part(67).y+landmarks.part(61).y)/2)), (int((landmarks.part(66).x+landmarks.part(62).x)/2), int((landmarks.part(66).y+landmarks.part(62).y)/2)), (209,206,0),2)
-        frame = cv2.line(frame, (int((landmarks.part(66).x+landmarks.part(62).x)/2), int((landmarks.part(66).y+landmarks.part(62).y)/2)), (int((landmarks.part(65).x+landmarks.part(63).x)/2), int((landmarks.part(65).y+landmarks.part(63).y)/2)), (209,206,0),2)
-        frame = cv2.line(frame, (int((landmarks.part(65).x+landmarks.part(63).x)/2), int((landmarks.part(65).y+landmarks.part(63).y)/2)), (landmarks.part(64).x, landmarks.part(64).y), (209,206,0),2)
-        frame = cv2.line(frame, (landmarks.part(64).x, landmarks.part(64).y), (landmarks.part(54).x, landmarks.part(54).y), (209,206,0),2)
-        for i in range(48,55):
+        for i in range(48,51):
             frame = cv2.line(frame, (landmarks.part(i).x, landmarks.part(i).y), (landmarks.part(i+1).x, landmarks.part(i+1).y), (209,206,0),2)
+        for i in range(51,57):
+            frame = cv2.line(frame, (landmarks.part(i).x, landmarks.part(i).y), (landmarks.part(i+1).x, landmarks.part(i+1).y), (255,0,255),2)
+        frame = cv2.line(frame, (landmarks.part(57).x, landmarks.part(57).y), (landmarks.part(58).x, landmarks.part(58).y), (209,206,0),2)
+        frame = cv2.line(frame, (landmarks.part(58).x, landmarks.part(58).y), (landmarks.part(59).x, landmarks.part(59).y), (209,206,0),2)
         frame = cv2.line(frame, (landmarks.part(48).x, landmarks.part(48).y), (landmarks.part(59).x, landmarks.part(59).y), (209,206,0),2)
-        for i in range(54,60):
+        frame = cv2.line(frame, (landmarks.part(48).x, landmarks.part(48).y), (landmarks.part(60).x, landmarks.part(60).y), (209,206,0),2)
+        frame = cv2.line(frame, (landmarks.part(64).x, landmarks.part(64).y), (landmarks.part(54).x, landmarks.part(54).y), (255,0,255),2)  
+        for i in range(61,64):
             frame = cv2.line(frame, (landmarks.part(i).x, landmarks.part(i).y), (landmarks.part(i-1).x, landmarks.part(i-1).y), (209,206,0),2)
+        for i in range(63,67):
+            frame = cv2.line(frame, (landmarks.part(i).x, landmarks.part(i).y), (landmarks.part(i-1).x, landmarks.part(i-1).y), (255,0,255),2)
+        frame = cv2.line(frame, (landmarks.part(66).x, landmarks.part(66).y), (landmarks.part(67).x, landmarks.part(67).y), (209,206,0),2)
+        frame = cv2.line(frame, (landmarks.part(67).x, landmarks.part(67).y), (landmarks.part(60).x, landmarks.part(60).y), (209,206,0),2) 
     if mode_type == 'nar':
         try:
             filename = 'shringan.png'
             oriimg = cv2.imread(filename,-1)
-            newimg = cv2.resize(oriimg,(int(landmarks.part(38).x-landmarks.part(41).x)+4,int(landmarks.part(41).y-landmarks.part(38).y)+4))
-            newimg2 = cv2.resize(oriimg,(int(landmarks.part(44).x-landmarks.part(47).x)+4,int(landmarks.part(47).y-landmarks.part(44).y)+4))
-            y1, y2 = landmarks.part(38).y-2, landmarks.part(41).y+2
-            x1, x2 = landmarks.part(41).x-2, landmarks.part(38).x+2
+            newimg = cv2.resize(oriimg,(int(landmarks.part(38).x-landmarks.part(41).x)+6,int(landmarks.part(41).y-landmarks.part(38).y)+6))
+            newimg2 = cv2.resize(oriimg,(int(landmarks.part(44).x-landmarks.part(47).x)+6,int(landmarks.part(47).y-landmarks.part(44).y)+6))
+            y1, y2 = landmarks.part(38).y-3, landmarks.part(41).y+3
+            x1, x2 = landmarks.part(41).x-3, landmarks.part(38).x+3
 
-            yo, yt = landmarks.part(44).y-2, landmarks.part(47).y+2
-            xo, xt = landmarks.part(47).x-2, landmarks.part(44).x+2
+            yo, yt = landmarks.part(44).y-3, landmarks.part(47).y+3
+            xo, xt = landmarks.part(47).x-3, landmarks.part(44).x+3
 
             alpha_s = newimg[:, :, 3] / 255.0
             alpha_l = 1.0 - alpha_s
@@ -111,7 +117,7 @@ def main():
     global RUN
     global is_async_mode
     mode = 'std'
-    input_stream = 0
+    input_stream = 1
     cap = cv2.VideoCapture(input_stream)
     if not cap.isOpened():
         print("Cap wasn't open")
@@ -158,6 +164,8 @@ def main():
         key_pressed = cv2.waitKey(int(DELAY))
         if key == ord('n'):
             mode = 'nar'
+        if key == ord('p'):
+            mode = 'std'
         if is_async_mode:
             infer_network.exec_net(next_request_id, in_frame_fd)
         else:
